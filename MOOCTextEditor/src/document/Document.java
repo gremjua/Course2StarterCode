@@ -5,6 +5,7 @@ package document;
  * @author UC San Diego Intermediate Programming MOOC team
  */
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +68,11 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		String[] groupsOfVowels = word.toLowerCase().split("[^aeiouy]");
+		groupsOfVowels = Arrays.stream(groupsOfVowels).filter(s -> !s.isEmpty()).toArray(String[]::new);
+		Boolean isLastLoneLetterE = word.toCharArray()[word.length()-1] == 'e'
+				&& groupsOfVowels[groupsOfVowels.length-1].contentEquals("e");
+		return isLastLoneLetterE && groupsOfVowels.length > 1? groupsOfVowels.length-1 : groupsOfVowels.length;
 	}
 	
 	/** A method for testing
@@ -132,7 +137,11 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return text.length();
+		double words = getNumWords();
+		double sentences = getNumSentences();
+		double syllables = getNumSyllables();
+
+	    return 206.835 - 1.015*(words/sentences) - 84.6*(syllables/words);
 	}
 	
 	
