@@ -71,7 +71,7 @@ public abstract class Document {
 		String[] groupsOfVowels = word.toLowerCase().split("[^aeiouy]");
 		groupsOfVowels = Arrays.stream(groupsOfVowels).filter(s -> !s.isEmpty()).toArray(String[]::new);
 		Boolean isLastLoneLetterE = word.toCharArray()[word.length()-1] == 'e'
-				&& groupsOfVowels[groupsOfVowels.length-1].contentEquals("e");
+				&& groupsOfVowels[groupsOfVowels.length-1].equals("e");
 		return isLastLoneLetterE && groupsOfVowels.length > 1? groupsOfVowels.length-1 : groupsOfVowels.length;
 	}
 	
